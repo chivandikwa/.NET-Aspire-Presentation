@@ -1,0 +1,19 @@
+export default {
+  googleFont: 'https://fonts.googleapis.com/css?family=Gloria+Hallelujah',
+  colors: {
+    text: '#333333',
+    background: '#f6f8fa',
+    primary: '#3498db',
+    secondary: '#8e44ad',
+    darkgray: '#2c3e50',
+  },
+  styles: {
+    pre: {
+      color: '#f6f8fa',
+      bg: 'darkgray',
+    },
+    code: {
+      color: 'secondary',
+    }
+  },
+};

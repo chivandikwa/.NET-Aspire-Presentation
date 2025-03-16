@@ -1,0 +1,77 @@
+@startuml
+skinparam componentStyle rectangle
+skinparam padding 12
+skinparam componentPadding 20
+skinparam defaultTextAlignment center
+skinparam legendBackgroundColor white
+' Define component styles with new color scheme
+!define Emulator #ffcccc
+!define Container #ffe6cc
+!define CloudService #b3e0ff
+!define Service #b3ffb3
+' Removed separate Monitoring definition as we'll use CloudService
+' Define legend
+legend right
+  |<#ffcccc>        | Emulators |
+  |<#ffe6cc>        | Containers |
+  |<#b3e0ff>        | Cloud Services |
+  |<#b3ffb3>        | Services Containers |
+endlegend
+' Containers (Orange)
+component "MongoDB\n\n<<nosql storage>>" as mongo Container
+component "Mongo Express" as mongo_express Container
+component "Redis\n\n<<cache>>" as cache Container
+component "Redis Insight\n\n<<redis ui>>" as redis_insight Container
+component "SQL Server\n\n<<db server>>" as sql Container
+component "Database\n\n<<sql storage>>" as db Container
+component "RabbitMQ\n\n<<message bus>>" as rabbitmq Container
+component "RabbitMQ Management" as rabbitmq_mgmt Container
+' Emulators (Red)
+component "Azure Storage" as storage Emulator
+component "Blob Storage\n\n<<blobs>>" as blobs Emulator
+component "Azure Servce Bus\n\n<<message bus>>" as serviceBus Emulator
+component "webhook-received\n\n<<queue>>" as queue Emulator
+' Cloud Services (Blue)
+component "Key Vault\n\n<<secrets>>" as keyVault CloudService
+' Services (Green)
+component "Jobs\n\n<<service>>" as jobs Service
+component "Processing\n\n<<service>> (2 replicas)" as processing Service
+component "Webhooks\n\n<<service>>" as webhooks Service
+component "Migration\n\n<<service>>" as migration Service
+component "API\n\n<<service>>" as api Service
+' Cloud Monitoring Services
+component "Application Insights\n\n<<monitoring>>" as appInsights CloudService
+component "Log Analytics Workspace\n\n<<logs storage>>" as logAnalytics CloudService
+' Data Store Relationships
+mongo --> mongo_express
+cache --> redis_insight
+sql --> db
+storage --> blobs
+' Messaging Relationships
+rabbitmq --> rabbitmq_mgmt
+serviceBus --> queue
+' Application Dependencies
+jobs --> rabbitmq
+processing --> mongo
+webhooks --> queue
+migration --> db
+api --> cache
+api --> db
+api --> keyVault
+api --> blobs
+api --> queue
+api --> processing
+' Application Insights connections
+migration --> appInsights
+api --> appInsights
+processing --> appInsights
+webhooks --> appInsights
+jobs --> appInsights
+' Log Analytics Workspace connections
+appInsights --> logAnalytics
+sql --> logAnalytics
+cache --> logAnalytics
+keyVault --> logAnalytics
+storage --> logAnalytics
+serviceBus --> logAnalytics
+@enduml

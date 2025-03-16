@@ -1,0 +1,589 @@
+import { notes } from "@mdx-deck/themes";
+import myTheme from "./theme";
+import Prism from "prismjs";
+import "prismjs/components/prism-csharp";
+import Timer from "./components/Timer";
+import { AspireDashboard, AspireBanner, Demo, Rolling } from "./components/Images";
+import { Tweet } from "./components/Images";
+export const theme = {
+  ...myTheme,
+};
+import { CodeSurfer } from "code-surfer";
+import { CodeSurferColumns, Step } from "code-surfer";
+import { github } from "@code-surfer/themes";
+import { LinearProgress } from "@material-ui/core";
+import TextField from "@material-ui/core/TextField";
+import { styled } from "@material-ui/core/styles";
+import { Chip } from "@material-ui/core";
+import { Avatar } from "@material-ui/core";
+import { Paper } from "@material-ui/core";
+
+<Head>
+  <title> .NET ASPIRE - Thulani S. Chivandikwa</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+  <script type="text/javascript" src="https://unpkg.com/@material-ui/core@4.12.1/umd/material-ui.production.min.js" />
+</Head>
+
+<Footer>
+  <Chip
+    avatar={
+      <Avatar
+        style={{ width: "35px", height: "35px", padding: "3px" }}
+        src={"https://learn.microsoft.com/en-us/dotnet/aspire/assets/dotnet-aspire-logo-128.svg"}
+      />
+    }
+    label=".NET Aspire - Thulani Chivandikwa"
+    style={{ marginBottom: "10px" }}
+  />
+  <Timer />
+</Footer>
+
+<AspireBanner />
+
+---
+
+## State of Cloud Native Apps
+
+_Beautiful but Complex_
+
+<Steps>
+
+- Distributed by default
+- Configuration explosion
+- Observability challenges
+- Local development vs. production Gap
+
+</Steps>
+
+<Notes>
+
+Cloud native
+
+- cloud ready
+- cloud aware
+
+- abstract the cloud
+- lift and shift to VM
+- map drive to s3 bucket or blob storage
+- scaling with more resources
+
+The idea of cloud native comes from the basic desire to decouple services. To achieve this, the architectural approach encourages: Resiliency, Manageability, Observability
+
+Effectively, this means your distributed application is loosely coupled, can support scaling as necessary, and is using instrumentation to be able to monitor your applications in real-time.
+
+- Distributed by Default - Today's applications span multiple services, databases, caches, and queues—requiring complex orchestration and communication patterns.
+- Configuration Explosion - Each component needs specific configuration for networking, security, scaling, and environment variables.
+- Observability Challenges - Tracing requests across service boundaries, collecting meaningful metrics, and centralizing logs has become essential but difficult.
+- Local Development vs. Production Gap - Developers struggle to replicate production-like environments locally, leading to "works on my machine" problems.
+
+This is were .NET Aspire comes in
+
+</Notes>
+
+---
+
+## State of Cloud Native Apps
+
+_Beautiful but Complex_
+
+<Steps>
+
+- Deployment complexity
+- Technology sprawl
+- SRE complexity
+- Team cognitive load
+
+</Steps>
+
+<Notes>
+
+- Deployment Complexity - Managing containerization, orchestration, and infrastructure as code requires specialized expertise beyond application development.
+- Technology Sprawl - Teams must become experts in numerous technologies: Kubernetes, Docker, service meshes, API gateways, and cloud-specific services.
+- Site Reliability Engineering and general resilience Complexity - Implementing circuit breakers, retries, timeouts, and graceful degradation across distributed boundaries requires sophisticated patterns.
+- Team Cognitive Load - Developers must context-switch between multiple, technologies, and operational concerns, reducing overall productivity.
+
+This is where .NET Aspire comes in
+
+</Notes>
+
+---
+
+## ~~Project TYE ❌~~ .NET ASPIRE
+
+<Steps>
+
+- .NET Aspire is a **set of tools, templates, and packages** for building observable, production ready apps.
+
+- GA, May 2024
+
+- It is very opinionated, but this gets a bad rep.
+
+- While opinionated, it is designed for flexibility.
+
+- It focuses on dev-time productivity enhancements.
+
+- Has integrations for common services with great defaults.
+
+- First class tooling for Visual Studio, Code and the .NET CLI.
+
+</Steps>
+
+<Notes>
+
+Tough to describe
+
+- not one thing, like a framework
+- a collection of a few things spread across multiple pillars to build cloud native apps better
+
+Goal was to make F5 easy
+
+New app, understanding a backend, communicating with a front end
+Maybe there is more parts and I need to know about URIs and ports
+
+- i just want to do https//purchaseorder or something, but no
+  Caching
+  database
+  More services, connection strings
+  Flavors and SKUs
+
+Onboarding
+
+What even am I doing? What is the business case I am trying to build from
+
+Flatten rock, infuse it with lightning
+
+.NET Aspire is delivered through a collection of NuGet packages that bootstrap or improve specific challenges with modern app development
+
+Designed for flexibility, .NET Aspire allows you to replace or extend parts with your preferred tools and workflows
+
+With dev-time productivity enhancements that emulate deployed scenarios, you can quickly develop interconnected apps
+
+Great people on It
+
+- James King Newton - creator of Newtonsoft.Json
+- David Fowler - distinguished engineer, creator of NuGet, SignalR, big on ASP.NET - has been called Taylor Swift of .NET developers (no not Beyonce, not interchangeable)
+  - only best I can think of is the Chuck Norrise of .NET - Jon Skeet
+  - you can find him on Twitter, if you are not on Twitter I hear you can speak his name 3 times to a reflective surface and he will manifest
+- Maddy Montaqila - PM of .NET MAUI
+
+Aspire does not
+
+- replace .NET functionality or libraries
+- force you down a narrow path (can be removed, customizable)
+- does not lock you into Azure or even .NET
+
+</Notes>
+
+---
+
+## Dev 🧑🏾‍💻 Orchestration
+
+<Steps>
+
+- Simplified configuration and interconnections of services
+
+- Service discovery
+
+- Managed environment variables
+
+- Abstraction of low level details
+
+- Overall no need for complex manual setup
+
+</Steps>
+
+<Notes>
+
+</Notes>
+
+---
+
+## Integrations 🧩
+
+<Steps>
+
+- NuGet packages (client wrappers + hosting) for popular services
+
+- Automated cloud resources setup
+
+- Great defaults (health checks, telemetry, resilience) 🪄, customizable
+
+- Works seamlessly with .NET (DI, existing SDKS, health, logging etc)
+
+</Steps>
+
+<Notes>
+
+Hosting integrations configure applications by provisioning resources (like containers or cloud resources) or pointing to existing instances (such as a local SQL server). These packages model various services, platforms, or capabilities, including caches, databases, logging, storage, and messaging systems.
+
+Client integrations wire up client libraries to dependency injection (DI), define configuration schema, and add health checks, resiliency, and telemetry where applicable.
+
+Hosting and client integrations are best when used together, but are not coupled and can be used separately
+
+</Notes>
+
+---
+
+## Tooling ⛏️
+
+<Steps>
+
+- Project templates for VS, VS Code and the .NET CLI
+
+- Tooling to add support to existing projects
+
+</Steps>
+
+<Notes>
+
+</Notes>
+
+---
+
+## Application Dashboard 🔧
+
+<Steps>
+
+- Out of the box real time dashboard
+
+- Resource list (state, endpoints, env)
+
+- Console output (real time)
+
+- Stuctured logs
+
+- Traces
+
+- Metrics
+
+</Steps>
+
+<Notes>
+
+</Notes>
+
+---
+
+## What about Dapr 🎩
+
+<Steps>
+
+- Dapr enables cloud native support, much like Aspire
+
+- Dapr donated to Cloud native Computing Foundation (CNCF), open source
+
+- Aspire solves some of the same problems, but does not replace Dapr
+
+- Aspire focuses more on the developer experience
+
+</Steps>
+
+<Notes>
+
+Tough to choose, one thing I can say is I have seen more activity happen on .NET
+Aspire in the last year than I have seen on Dapr since its inception
+
+</Notes>
+
+---
+
+## Where do I signup?
+
+<Steps>
+
+- .NET 8.0/9.0
+
+- An OCI compliant container runtime 🐳 (Docker Desktop, Podman)
+
+- VS, VC Code, JetBrains Rider
+
+</Steps>
+
+<Notes>
+
+</Notes>
+
+---
+
+### Demo Time 🪧
+
+<Demo />
+
+---
+
+<CodeSurfer  theme={github}>
+
+```csharp subtitle="resources"
+var cache = builder.AddRedis("cache")
+    .WithRedisInsight();
+
+var value = builder.AddParameter("value");
+
+var api = builder.AddProject<Projects.api>("api")
+    .WithEnvironment("EXAMPLE_VALUE", value);
+
+var ollama = builder.AddContainer("ollama", "ollama/ollama")
+    .WithLifetime(ContainerLifetime.Persistent);
+
+var tenantService = builder.AddExecutable("tenantService", path, workingDirectory);
+
+var spa = builder.AddDockerfile("spa", "path", "Dockerfile")
+```
+
+```diff 1 subtitle="definition"
+
+```
+
+```diff 1[30:36] subtitle="names"
+
+```
+
+```diff 2 subtitle="linked resources"
+
+```
+
+```diff 6 subtitle="projects"
+
+```
+
+```diff 4,7 subtitle="parameters"
+
+```
+
+```diff 9,10 subtitle="containers"
+
+```
+
+```diff 12 subtitle="executables"
+
+```
+
+```diff 14 subtitle="containers"
+
+```
+
+</CodeSurfer>
+
+---
+
+<CodeSurfer  theme={github}>
+
+```csharp subtitle=""
+var cache = builder.AddRedis("cache")
+    .WithRedisInsight();
+
+var api = builder.AddProject<Projects.api>("api")
+    .WithReference(cache);
+```
+
+```diff 4:5 subtitle="references"
+
+```
+
+```diff 5,1[5:10] subtitle="reference"
+
+```
+
+</CodeSurfer>
+
+---
+
+<CodeSurfer  theme={github}>
+
+```csharp subtitle=""
+var api = builder.AddProject<Projects.api>("api")
+    .WithReference(cache)
+    .WaitFor(cache)
+    .WaitForCompletion(migration);
+```
+
+```diff 3 subtitle="wait for"
+
+```
+
+```diff 4 subtitle="wait for completion"
+
+```
+
+</CodeSurfer>
+
+---
+
+<CodeSurfer  theme={github}>
+
+```csharp subtitle=""
+var api = builder.AddProject<Projects.api>("api")
+    .WithHttpEndpoint(port: 5066)
+    .WithReplicas(2);
+```
+
+```diff 2 subtitle="endpoints"
+
+```
+
+```diff 3 subtitle="replicas"
+
+```
+
+</CodeSurfer>
+
+---
+
+<CodeSurfer  theme={github}>
+
+```csharp subtitle=""
+var redis = builder.ExecutionContext.IsRunMode
+    ? builder.AddRedis("redis")
+    : builder.AddConnectionString("redis");
+```
+
+```diff 1[13:47] subtitle="condition"
+
+```
+
+```diff 2 subtitle="condition"
+
+```
+
+```diff 3 subtitle="condition"
+
+```
+
+</CodeSurfer>
+
+---
+
+<CodeSurfer  theme={github}>
+
+```csharp subtitle=""
+var migration = builder.AddProject<Projects.migration>("migration")
+    .WithExplicitStart();
+```
+
+```diff 2 subtitle="explicit start"
+
+```
+
+</CodeSurfer>
+
+---
+
+<CodeSurfer  theme={github}>
+
+```csharp subtitle="service defaults"
+public static TBuilder AddServiceDefaults<TBuilder>(this TBuilder builder)
+  where TBuilder : IHostApplicationBuilder
+{
+    builder.ConfigureOpenTelemetry();
+
+    builder.AddDefaultHealthChecks();
+
+    builder.Services.AddServiceDiscovery();
+
+    builder.Services.ConfigureHttpClientDefaults(http =>
+    {
+        http.AddStandardResilienceHandler();
+        http.AddServiceDiscovery();
+    });
+
+    builder.Services.Configure<ServiceDiscoveryOptions>(options =>
+    {
+        options.AllowedSchemes = ["https"];
+    });
+
+    return builder;
+}
+```
+
+```diff 4 subtitle="open telemetry"
+
+```
+
+```diff 6 subtitle="health checks"
+
+```
+
+```diff 8 subtitle="service discovery"
+
+```
+
+```diff 10:15 subtitle="http client"
+
+```
+
+```diff 16:19 subtitle="open telemetry"
+
+```
+
+</CodeSurfer>
+
+---
+
+<CodeSurfer  theme={github}>
+
+```csharp subtitle="integration tests"
+public class SpaIntegrationTest
+{
+    [Fact]
+    public async Task GetWebResourceRootReturnsOkStatusCode()
+    {
+        var builder = await DistributedApplicationTestingBuilder
+            .CreateAsync<Projects.AspireApp_AppHost>();
+
+        builder.Services.ConfigureHttpClientDefaults(clientBuilder =>
+        {
+            clientBuilder.AddStandardResilienceHandler();
+        });
+
+        await using var app = await builder.BuildAsync();
+        await app.StartAsync();
+
+        var httpClient = app.CreateHttpClient("spa");
+
+        using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(30));
+        await app.ResourceNotifications.WaitForResourceHealthyAsync(
+            "spa",
+            cts.Token);
+        var response = await httpClient.GetAsync("/");
+
+        Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+    }
+}
+```
+
+```diff 4 subtitle="arrange"
+
+```
+
+```diff 6 subtitle="act"
+
+```
+
+```diff 8 subtitle="assert"
+
+```
+
+</CodeSurfer>
+
+---
+
+### Coming Soon 🔜
+
+<AspireDashboard />
+
+---
+
+### Closing words
+
+> “Any sufficiently advanced technology is indistinguishable from magic” - Arthur C. Clarke
+
+---
+
+<Notes>1962 - Profiles of the Future: An Inquiry into the Limits of the Possible</Notes>
+
+### Thanks 🙂
+
+<Rolling />
+
+---
